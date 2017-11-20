@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KBD</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div id="insertDiv"></div>
+    </main>
+    <footer></footer>
+    <script>
+        var keys = {
+            '0': {0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p',length:10},
+			'1': {0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',length:9},
+			'2': {0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',length:7},
+			'length': 3
+        }
+        var hash = {
+             q: 'qq.com',
+             // 前面加不加‘’无所谓
+            'w': 'weibo.com', 
+            'e': 'ele.me', 
+            'r': 'renren.com', 
+            't': 'tianya.com', 
+            'y': 'youtube.com', 
+            'u': 'uc.com' , 
+            'i': 'iqiyi.com', 
+            'o': 'opera.com', 
+            'p': 'www.pptv.com', 
+            'a': 'acfun.tv', 
+            's': 'sohu.com', 
+            'z': 'zhihu.com', 
+            'm': 'www.mcdonalds.com.cn'
+        }
+
+        var hashInIocalStorage = JSON.parse(localStorage.getItem('zzz') || 'null')
+        // 取得localStorage中的zzz并赋值给hashInIocalStorage
+        if(hashInIocalStorage){   // 值为真（存在）
+            hash = hashInIocalStorage
+        }  
+            
+        index = 0
+        while(index<keys['length']){ //0 1 2
+            div1 = document.createElement('div')
+            //创建一个div元素并声明为div1
+            insertDiv.appendChild(div1)
+            //将声明的div1插入到id="insertDiv"上
+            row = keys[index]
+            index2 = 0
+            while(index2<row['length']){  // 10  9  7
+                kbd1 = document.createElement('kbd')
+                div1.appendChild(kbd1)
+                kbd1.textContent = row[index2]
+                buttonX = document.createElement('button')
+                buttonX.textContent = '编辑'
+                buttonX.id = row[index2]
+                buttonX.onclick = function(xzkjcnxlkcjlk){
+                    // console.log('我被点击了')
+                    // console.log(buttonX)
+                    // onclick在while过程中已经被触发，当用户点击生效的时候读取buttonX容器并每一次都指向它
+                    // console.log(xzkjcnxlkcjlk.target.id)
+                    key = xzkjcnxlkcjlk.target.id
+                    x = prompt('给我一个网址')
+                    hash[key] = x  //此命令将修改hash
+                    localStorage.setItem('zzz',JSON.stringify(hash))
+                    // 将指定的字符串'hash'本地存储到项目(对象)'zzz'中
+                    /* 如果不点击触发修改网址，则zzz为空，不存在zzz，也从未执行过这行命令。
+                    如果未进行编辑网址操作，则（41）行中的zzz是空的 
+                    */
+                }
+                //如果把buttonx点击事件放到外面就只有最后一个点击会被生效
+                kbd1.appendChild(buttonX)
+                index2 = index2+1
+            }
+            index = index+1
+        }
+        document.onkeypress = function(xzkjcnxlkcjlk){
+            key = xzkjcnxlkcjlk['key']
+            website = hash[key]
+            // 在当前页面（地址栏）中打开网址location.href = 'http://'+website
+            window.open('http://'+website, '_blank')
+            // 在新窗口打开页面
+           
+        }
+    </script>
+</body>
+</html> 
