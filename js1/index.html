@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <style>
+        
+        
+    </style>
     <header></header>
     <main>
         <div id="insertDiv"></div>
@@ -46,23 +50,25 @@
             
         index = 0
         while(index<keys['length']){ //0 1 2
-            div1 = document.createElement('div')
-            //创建一个div元素并声明为div1
-            insertDiv.appendChild(div1)
-            //将声明的div1插入到id="insertDiv"上
+            div = document.createElement('div')
+            //创建一个div元素并声明为div
+            div.className = "row"
+            insertDiv.appendChild(div)
+            //将声明的div插入到id="insertDiv"上
             row = keys[index]
             index2 = 0
             while(index2<row['length']){  // 10  9  7
-                kbd1 = document.createElement('kbd')
-                div1.appendChild(kbd1)
-                kbd1.textContent = row[index2]
-                buttonX = document.createElement('button')
-                buttonX.textContent = '编辑'
-                buttonX.id = row[index2]
-                buttonX.onclick = function(xzkjcnxlkcjlk){
+                kbd = document.createElement('kbd')
+                kbd.className = 'key'
+                div.appendChild(kbd)
+                kbd.textContent = row[index2]
+                button = document.createElement('button')
+                button.textContent = '编辑'
+                button.id = row[index2]
+                button.onclick = function(xzkjcnxlkcjlk){
                     // console.log('我被点击了')
-                    // console.log(buttonX)
-                    // onclick在while过程中已经被触发，当用户点击生效的时候读取buttonX容器并每一次都指向它
+                    // console.log(button)
+                    // onclick在while过程中已经被触发，当用户点击生效的时候读取button容器并每一次都指向它
                     // console.log(xzkjcnxlkcjlk.target.id)
                     key = xzkjcnxlkcjlk.target.id
                     x = prompt('给我一个网址')
@@ -73,8 +79,8 @@
                     如果未进行编辑网址操作，则（41）行中的zzz是空的 
                     */
                 }
-                //如果把buttonx点击事件放到外面就只有最后一个点击会被生效
-                kbd1.appendChild(buttonX)
+                //如果把button点击事件放到外面就只有最后一个点击会被生效
+                kbd.appendChild(button)
                 index2 = index2+1
             }
             index = index+1

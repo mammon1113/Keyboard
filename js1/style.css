@@ -3,6 +3,14 @@
     text-decoration: none;
 }
 
+body {
+    max-height: 100%;
+    max-width: 100%;
+    background: grey  url(./picture/background.jpg) no-repeat center center; /*x方向居中 y方向居中*/
+    background-size:100% 100%;
+    /*size: cover*/
+}
+
 kbd {
     border: 1px solid red;
     height: 4em;
@@ -13,19 +21,25 @@ kbd {
 }
 
 #insertDiv {
-    display: inline-block;    
+    display: inline-block;
+    /*background: rgba(255,255,255,0.03);
+    border-radius: 3%;    */
 }
 
 #insertDiv >div:nth-child(2) {
-    margin-left: 2em;
+    margin-left: -15px;
 }
 
 #insertDiv >div:nth-child(3) {
-    margin-left: 4em;
+    margin-left: -90px;
 }
 
 main {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /*屏幕视口高度*/
 }
 
 
@@ -39,4 +53,29 @@ kbd > button {
 
 kbd:hover > button{
     display: inline-block;
+    background: none;
+    border :0px;
 } 
+
+.key {
+    width: 50px;
+    height: 40px;
+    font-size: 14px;
+    font-family: 'Helvetica';
+    border: 1px solid #373737;
+    border-radius: 7px;
+    color: #C5C5C5;
+    box-shadow: 0 0 0 1px #1A1B1C, 0 0 0 2px #1F2020, 0 3px 0 2px #080808;
+    /* 正数阴影取值 右偏、下偏、模糊、扩展*/
+    background: linear-gradient(to right, #292929 0%,#111111 100%); 
+    display: inline-flex; /**/
+    align-items: center;/*上下居中*/
+    justify-content:center;/*左右居中*/
+}
+.row {
+    margin: 20px;
+}
+
+.row .key {
+    margin: 0 10px;
+}
