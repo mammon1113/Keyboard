@@ -16,6 +16,7 @@ kbd {
     height: 4em;
     width: 4em;
     display: inline-block;
+    position: relative;
     text-transform: uppercase;
     position: relative;
 }
@@ -70,7 +71,7 @@ kbd:hover > button{
     background: linear-gradient(to right, #292929 0%,#111111 100%); 
     display: inline-flex; /**/
     align-items: center;/*上下居中*/
-    justify-content:center;/*左右居中*/
+    justify-content: center;/*左右居中*/
 }
 .row {
     margin: 20px;
@@ -78,4 +79,15 @@ kbd:hover > button{
 
 .row .key {
     margin: 0 10px;
+}
+
+.key img {
+    width:12px;
+    height:12px;
+}
+
+kbd img {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
 }

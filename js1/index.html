@@ -61,9 +61,20 @@
                 kbd = document.createElement('kbd')
                 kbd.className = 'key'
                 div.appendChild(kbd)
-                kbd.textContent = row[index2]
+                span = document.createElement('span')
+                span.textContent = row[index2]
+                kbd.appendChild(span)
+                img = document.createElement('img')
+                if(hash[row[index2]]){
+                    img.src = 'http://'+hash[row[index2]]+'/favicon.ico'
+                    img.alt = ''
+                    // 其实上面的办法更好一些，因为默认ico存储位置是不变的，icon一般都可读取，这样无论未来是否有变动，icon都能成功读取到
+                }else{
+                    img.src = "https://i.loli.net/2017/11/23/5a15bb3b6dbed.png"
+                }
+                kbd.appendChild(img)
                 button = document.createElement('button')
-                button.textContent = '编辑'
+                button.textContent = 'E'
                 button.id = row[index2]
                 button.onclick = function(xzkjcnxlkcjlk){
                     // console.log('我被点击了')
