@@ -67,10 +67,13 @@
                 img = document.createElement('img')
                 if(hash[row[index2]]){
                     img.src = 'http://'+hash[row[index2]]+'/favicon.ico'
-                    img.alt = ''
-                    // 其实上面的办法更好一些，因为默认ico存储位置是不变的，icon一般都可读取，这样无论未来是否有变动，icon都能成功读取到
+                    //img.alt = ''
+                    // 默认ico存储位置是不变的，icon一般都可读取，这样无论未来是否有变动，icon都能成功读取到
                 }else{
                     img.src = "https://i.loli.net/2017/11/23/5a15bb3b6dbed.png"
+                }
+                img.onerror = function(ggg){
+                    ggg.target.src = "https://i.loli.net/2017/11/23/5a15bb3b6dbed.png"
                 }
                 kbd.appendChild(img)
                 button = document.createElement('button')
@@ -81,9 +84,15 @@
                     // console.log(button)
                     // onclick在while过程中已经被触发，当用户点击生效的时候读取button容器并每一次都指向它
                     // console.log(xzkjcnxlkcjlk.target.id)
-                    key = xzkjcnxlkcjlk.target.id
+                    buttom2 = xzkjcnxlkcjlk.target
+                    img2 = buttom2.previousSibling // buttom2的兄弟元素
+                    key = buttom2.id
                     x = prompt('给我一个网址')
                     hash[key] = x  //此命令将修改hash
+                    img2.src = 'http://'+ x +'/favicon.ico'
+                    img2.onerror = function(ggg){
+                        ggg.target.src = "//i.loli.net/2017/11/23/5a15bb3b6dbed.png"
+                    }       
                     localStorage.setItem('zzz',JSON.stringify(hash))
                     // 将指定的字符串'hash'本地存储到项目(对象)'zzz'中
                     /* 如果不点击触发修改网址，则zzz为空，不存在zzz，也从未执行过这行命令。
