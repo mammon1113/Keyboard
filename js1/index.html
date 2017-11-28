@@ -18,100 +18,141 @@
     </main>
     <footer></footer>
     <script>
-        var keys = {
-            '0': {0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p',length:10},
-			'1': {0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',length:9},
-			'2': {0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',length:7},
-			'length': 3
+        function init(){
+            var keys = {
+                '0': {0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p',length:10},
+                '1': {0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',length:9},
+                '2': {0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',length:7},
+                'length': 3
+            }
+            var hash = {
+                q: 'qq.com',
+                // 前面加不加‘’无所谓
+                'w': 'weibo.com', 
+                'e': 'ele.me', 
+                'r': 'renren.com', 
+                't': 'tianya.com', 
+                'y': 'youtube.com', 
+                'u': 'uc.com' , 
+                'i': 'iqiyi.com', 
+                'o': 'opera.com', 
+                'p': 'www.pptv.com', 
+                'a': 'acfun.tv', 
+                's': 'sohu.com', 
+                'z': 'zhihu.com', 
+                'm': 'www.mcdonalds.com.cn'
+            }
+
+            var hashInIocalStorage = getFromLocalStorage('zzz') // 取得localStorage中的zzz并赋值给hashInIocalStorage
+            if(hashInIocalStorage){   // 值为真（存在）
+                hash = hashInIocalStorage
+            } 
+            return {
+                'keys': keys,
+                'hash': hash
+            }
         }
-        var hash = {
-             q: 'qq.com',
-             // 前面加不加‘’无所谓
-            'w': 'weibo.com', 
-            'e': 'ele.me', 
-            'r': 'renren.com', 
-            't': 'tianya.com', 
-            'y': 'youtube.com', 
-            'u': 'uc.com' , 
-            'i': 'iqiyi.com', 
-            'o': 'opera.com', 
-            'p': 'www.pptv.com', 
-            'a': 'acfun.tv', 
-            's': 'sohu.com', 
-            'z': 'zhihu.com', 
-            'm': 'www.mcdonalds.com.cn'
+        // 1.初始化数据
+        var hashA = init()
+        var keys = hashA['keys']
+        var hash = hashA['hash']
+    
+        function getFromLocalStorage(name){
+            return JSON.parse(localStorage.getItem(name) || 'null')
+        }
+        
+        function tag(tagName){
+           return document.createElement(tagName)
+        } 
+
+        function createSpan(textContent){
+            var span = tag('span')
+            span.textContent = textContent
+            span.className = 'text'
+            return span
         }
 
-        var hashInIocalStorage = JSON.parse(localStorage.getItem('zzz') || 'null')
-        // 取得localStorage中的zzz并赋值给hashInIocalStorage
-        if(hashInIocalStorage){   // 值为真（存在）
-            hash = hashInIocalStorage
-        }  
-            
-        index = 0
-        while(index<keys['length']){ //0 1 2
-            div = document.createElement('div')
-            //创建一个div元素并声明为div
-            div.className = "row"
-            insertDiv.appendChild(div)
-            //将声明的div插入到id="insertDiv"上
-            row = keys[index]
-            index2 = 0
-            while(index2<row['length']){  // 10  9  7
-                kbd = document.createElement('kbd')
-                kbd.className = 'key'
-                div.appendChild(kbd)
-                span = document.createElement('span')
-                span.textContent = row[index2]
-                kbd.appendChild(span)
-                img = document.createElement('img')
-                if(hash[row[index2]]){
-                    img.src = 'http://'+hash[row[index2]]+'/favicon.ico'
-                    //img.alt = ''
-                    // 默认ico存储位置是不变的，icon一般都可读取，这样无论未来是否有变动，icon都能成功读取到
-                }else{
-                    img.src = "https://i.loli.net/2017/11/23/5a15bb3b6dbed.png"
-                }
-                img.onerror = function(ggg){
-                    ggg.target.src = "https://i.loli.net/2017/11/23/5a15bb3b6dbed.png"
-                }
-                kbd.appendChild(img)
-                button = document.createElement('button')
-                button.textContent = 'E'
-                button.id = row[index2]
-                button.onclick = function(xzkjcnxlkcjlk){
+        function createButton(id){
+            var button = tag('button')
+            button.textContent = 'E'
+            button.id = id
+            button.onclick = function(xzkjcnxlkcjlk){
                     // console.log('我被点击了')
                     // console.log(button)
                     // onclick在while过程中已经被触发，当用户点击生效的时候读取button容器并每一次都指向它
                     // console.log(xzkjcnxlkcjlk.target.id)
-                    buttom2 = xzkjcnxlkcjlk.target
-                    img2 = buttom2.previousSibling // buttom2的兄弟元素
-                    key = buttom2.id
-                    x = prompt('给我一个网址')
-                    hash[key] = x  //此命令将修改hash
-                    img2.src = 'http://'+ x +'/favicon.ico'
-                    img2.onerror = function(ggg){
-                        ggg.target.src = "//i.loli.net/2017/11/23/5a15bb3b6dbed.png"
-                    }       
-                    localStorage.setItem('zzz',JSON.stringify(hash))
+                var buttom2 = xzkjcnxlkcjlk.target
+                var img2 = buttom2.previousSibling // buttom2的兄弟元素
+                var key = buttom2.id
+                var x = prompt('给我一个网址')
+                hash[key] = x  //此命令将修改hash
+                img2.src = 'http://'+ x +'/favicon.ico'
+                img2.onerror = function(ggg){
+                    ggg.target.src = "//i.loli.net/2017/11/23/5a15bb3b6dbed.png"
+                }       
+                localStorage.setItem('zzz',JSON.stringify(hash))
                     // 将指定的字符串'hash'本地存储到项目(对象)'zzz'中
-                    /* 如果不点击触发修改网址，则zzz为空，不存在zzz，也从未执行过这行命令。
-                    如果未进行编辑网址操作，则（41）行中的zzz是空的 
-                    */
-                }
-                //如果把button点击事件放到外面就只有最后一个点击会被生效
-                kbd.appendChild(button)
-                index2 = index2+1
-            }
-            index = index+1
+                    // 如果不点击触发修改网址，则zzz为空，不存在zzz，也从未执行过这行命令。
+                    // 如果未进行编辑网址操作，则（41）行中的zzz是空的 
+            } //如果把button点击事件放到外面就只有最后一个点击会被生效
+            return button
         }
-        document.onkeypress = function(xzkjcnxlkcjlk){
-            key = xzkjcnxlkcjlk['key']
-            website = hash[key]
-            // 在当前页面（地址栏）中打开网址location.href = 'http://'+website
-            window.open('http://'+website, '_blank')
-            // 在新窗口打开页面
-           
+
+        function createImage(domain){
+            var img = tag('img')
+                if(domain){
+                    img.src = 'http://'+ domain +'/favicon.ico'
+                    //img.alt = ''
+                    // 默认ico存储位置是不变的，icon一般都可读取，这样无论未来是否有变动，icon都能成功读取到
+                }else{
+                    img.src = "//i.loli.net/2017/11/23/5a15bb3b6dbed.png"
+                }
+                img.onerror = function(ggg){
+                    ggg.target.src = "//i.loli.net/2017/11/23/5a15bb3b6dbed.png"
+                }
+                return img
+        }
+        // 2.生成键盘
+        //   遍历kesy,生成keyboard标签
+        generateKeyboard(keys,hash)
+        // 3.监听用户动作
+        listenToKeyboard(hash)
+        
+        function generateKeyboard(keys,hash){
+            for(var index = 0; index<keys['length']; index = index+1){
+                var div = tag('div') //创建一个div元素并声明为div
+                div.className = "row"
+
+                insertDiv.appendChild(div) //将声明的div插入到id="insertDiv"上
+
+                var row = keys[index]
+                for(var index2 = 0; index2<row['length']; index2 = index2+1){  // 10  9  7
+                    var span = createSpan(row[index2])
+
+                    var kbd = tag('kbd')
+                    kbd.className = 'key'
+
+                    var img = createImage(hash[row[index2]])
+                    
+                    var button = createButton(row[index2])
+                    kbd.appendChild(span)
+                    kbd.appendChild(img)
+                    kbd.appendChild(button)
+
+                    div.appendChild(kbd)
+
+                }
+            }
+        }
+
+        function listenToKeyboard(hash){
+            document.onkeypress = function(xzkjcnxlkcjlk){
+                var key = xzkjcnxlkcjlk['key']
+                var website = hash[key]
+                // 在当前页面（地址栏）中打开网址location.href = 'http://'+website
+                window.open('http://'+website, '_blank')
+                // 在新窗口打开页面
+            }
         }
     </script>
 </body>
